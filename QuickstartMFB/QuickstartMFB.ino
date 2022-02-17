@@ -31,7 +31,7 @@ void loop() {
   int currentTrial = 1;
 
   // Main loop
-  while (currentTrial < maxTrialNumber){
+  while (currentTrial =< maxTrialNumber){
     //Serial.print("Trial: ");
     //Serial.print(currentTrial);
     //Serial.print(" \n ");
@@ -60,6 +60,9 @@ void loop() {
           // Check if the fork is pressed
           if (analogRead(forkPin) == 0){
             timeFork = millis() - start_gotrial;
+            digitalWrite(pulsePin, HIGH);
+            delay(5);
+            digitalWrite(pulsePin, LOW);
             //Serial.println("Lever pressed - HIT");
             // Send stimulus to pulse pal on pulse pin 
             forkStatus = 1;
