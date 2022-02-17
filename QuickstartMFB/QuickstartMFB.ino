@@ -15,7 +15,7 @@ const int maxTrialNumber = 320;
 const int intertrialDuration = 3000;
 
 void setup() {
-  Serial.begin(9600); 
+  Serial.begin(115200); 
 }
 
 void loop() {
@@ -27,65 +27,86 @@ void loop() {
   }
 
   // Keep track of current trial number
-  Serial.println("Protocol Starting ... \n");
+  //Serial.println("Protocol Starting ... \n");
   int currentTrial = 1;
 
   // Main loop
   while (currentTrial < maxTrialNumber){
+    //Serial.print("Trial: ");
+    //Serial.print(currentTrial);
+    //Serial.print(" \n ");
     
     // Maybe switch would be more elegant for trial
 
     // DEBUG
     int trialType = trialTypes[currentTrial];
+    int forkStatus = 0;
+    int correct = 0;
+    int timeFork = 0;
 
     // Apply different behaviours depending on trial type (Go/NoGo)    
     if (trialType == 1){
-        Serial.println("Go Trial");
+        //Serial.println("Go");
 
         // Send TTL on GO pin and keep track of trial timing
         digitalWrite(goTTL, HIGH);
         delay(5);
         digitalWrite(goTTL, LOW);
 
-        int start_gotrial = millis();
+        unsigned long start_gotrial = millis();
 
         // Read input from IR fork during response window
-        while (millis() - start_gotrial < trialDuration){
-          int forkValue = analogRead(forkPin);
-    
+        while (millis() - start_gotrial < trialDuration){    
           // Check if the fork is pressed
-          if (forkValue == 0){
-            Serial.println("Lever pressed - HIT");
+          if (analogRead(forkPin) == 0){
+            timeFork = millis() - start_gotrial;
+            //Serial.println("Lever pressed - HIT");
             // Send stimulus to pulse pal on pulse pin 
+            forkStatus = 1;
+            correct = 1;
             break;
           } // fork pressed
         } // end trial window
       } // end trial type
 
       else if (trialType == 2){
-        Serial.println("NoGo Trial");
+        //Serial.println("NoGo");
   
         // Send TTL on GO pin and keep track of trial timing
         digitalWrite(nogoTTL, HIGH);
         delay(5);
         digitalWrite(nogoTTL, LOW);
-        int start_nogotrial = millis();
 
+        unsigned long start_nogotrial = millis();
+        
         // Read input from IR fork during response window
         while (millis() - start_nogotrial < trialDuration){
-          int forkValue = analogRead(forkPin);
-    
           // Check if the fork is pressed
-          if (forkValue == 0){
-            Serial.println("Lever pressed - False Alarm");
+          if (analogRead(forkPin) == 0){
+            timeFork = millis() - start_nogotrial;
+            //Serial.println("Lever pressed - False Alarm");
+            forkStatus = 1;
+            correct = 0;
             delay(5000);
             break;
           } // fork pressed
-        } // end trial         
+          else{
+            correct = 1;
+          }
+          
+        } // end trial 
       } // end trial type
-
+      Serial.print(currentTrial);
+      Serial.print(",");
+      Serial.print(trialType);   
+      Serial.print(",");
+      Serial.print(forkStatus);
+      Serial.print(",");
+      Serial.print(correct);
+      Serial.print(",");
+      Serial.println(timeFork);  
      // Reserved inter-trial time
-     Serial.println("---Intertrial Time---");
+     //Serial.println("---Intertrial Time---");
      delay(intertrialDuration);
      currentTrial ++; 
   } // end main trial loop
