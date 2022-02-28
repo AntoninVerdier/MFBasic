@@ -1,4 +1,4 @@
-/github/license/:user/:repo
+https://img.shields.io/badge/License-MIT-green
 
 # MyceFasterBetter - A minimalist framework for MFB-reward tasks
 
