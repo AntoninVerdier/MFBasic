@@ -1,3 +1,5 @@
+/github/license/:user/:repo
+
 # MyceFasterBetter - A minimalist framework for MFB-reward tasks
 
 MyceFasterBetter is a ensemble of code and instructions to build a simple working MFB (Medial Forebrain Bundle Stimulation) apparatus to be used for behavioral learning in mice. It uses an Arduino Uno as a base and send TTLs to chosen outputs to time both the stimulus and the reward. A small processing GUI is used to keep track of the ongoing protocol. This work is paired with our article: [Article]()
