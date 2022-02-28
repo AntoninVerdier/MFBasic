@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/License-MIT-green.svg)![](https://img.shields.io/github/downloads/AntoninVerdier/MyceFasterBetter/total)![](https://img.shields.io/github/issues/AntoninVerdier/MyceFasterBetter)
+![](https://img.shields.io/badge/License-MIT-green.svg)	![](https://img.shields.io/github/downloads/AntoninVerdier/MyceFasterBetter/total)	![](https://img.shields.io/github/issues/AntoninVerdier/MyceFasterBetter)
 
 # MyceFasterBetter - A minimalist framework for MFB-reward tasks
 
